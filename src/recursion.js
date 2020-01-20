@@ -111,15 +111,14 @@ var range = function(x, y) {
 var exponent = function(base, exp) {
 	if (exp === 0) {
 		return 1;
-	}
-	if (exp === 1) {
+	} else if (exp === 1) {
 		return base;
 	}
 	if (exp < 0) {
 		return 1 / (base * exponent(base, -exp - 1));
+	} else {
+		return base * exponent(base, exp - 1);
 	}
-
-	return base * exponent(base, exp - 1);
 };
 
 // 8. Determine if a number is a power of two.
@@ -127,14 +126,38 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+	if (n === 1) {
+		return true;
+	} else if (n % 2 !== 0 || n === 0) {
+		return false;
+	} else {
+		return powerOfTwo(n/2);
+	}
 };
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+	var result = '';	
+	if (string === ''){
+		return result;
+	}
+	var lastChar = string[string.length - 1];
+	return result.concat(lastChar, reverse(string.slice(0, string.length - 1)));
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+	var frontChar = string[0].toLowerCase();
+	var backChar = string[string.length - 1].toLowerCase();
+
+	if (string.length <= 1) {
+    	return true;
+    }
+	if (frontChar === backChar) {
+		return palindrome(string.slice(1, string.length - 1))
+	}
+	return false;
+
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
